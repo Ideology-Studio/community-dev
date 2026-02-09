@@ -1,26 +1,38 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Core Colors */
+  --color-black: #050505;
+  --color-white: #ffffff;
+  --color-lime: #a46cfd;
+  /* Fresh Lime from reference */
+  --color-lime-dim: #c7a7fc;
+  --color-dark-card: #0f0f11;
+  --color-gray-100: #f4f4f5;
+  --color-gray-500: #71717a;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  --color-brand-black: var(--color-black);
+  --color-brand-white: var(--color-white);
+  --color-brand-lime: var(--color-lime);
+  --color-brand-dark-card: var(--color-dark-card);
+  --color-brand-gray: var(--color-gray-500);
+  --color-brand-light-gray: var(--color-gray-100);
+
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Clash Display", system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Utilities */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
 }
+
+.text-outline {
+  -webkit-text-stroke: 1px currentColor;
+  color: transparent;
+}
+
+/* Section Specific Scopes if needed, but utility classes are preferred */

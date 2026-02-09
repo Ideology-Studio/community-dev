@@ -1,0 +1,235 @@
+{
+  "hero": {
+    "badge": {
+      "label": "Nuova community per dev che vogliono costruire sul serio"
+    },
+    "title": {
+      "leading": "Hackathon, open source,",
+      "highlight": "zero fuffa."
+    },
+    "subtitle": "Una community selezionata di sviluppatori dove partecipi a sfide curate, costruisci progetti pubblici e fai crescere davvero il tuo profilo GitHub e il tuo network.",
+    "primaryCta": {
+      "label": "Iscriviti alla community",
+      "href": "#"
+    },
+    "bullets": [
+      "Progetti open source reali",
+      "Hackathon mirate, non generiche",
+      "Focus su dev mid/senior motivati"
+    ],
+    "snippet": {
+      "fileName": "next-hackathon.ts",
+      "comment": "// prossima hackathon · 48h · remote",
+      "stack": [
+        "Next.js",
+        "Node",
+        "PostgreSQL",
+        "Tailwind"
+      ],
+      "devNeeded": 32,
+      "reward": "progetto reale nel tuo GitHub",
+      "stats": {
+        "waitlist": "120+",
+        "projects": "40+",
+        "community": "Selezionata"
+      }
+    }
+  },
+  "about": {
+    "badge": "Per dev che vogliono costruire, non solo \"studiare\".",
+    "title": "HTTP Requests in Multiple Languages",
+    "subtitle": "See how to make HTTP requests across different programming languages. From Node.js with fetch and axios, to Python with requests and httpx, Go with net/http. Each example shows POST requests with JSON payloads and proper headers.",
+    "cta": {
+      "label": "View Documentation",
+      "href": "#"
+    },
+    "code": [
+      {
+        "language": "javascript",
+        "filename": "http-request.js",
+        "code": "// Node.js HTTP request using fetch (Node 18+)\nconst response = await fetch('https://api.example.com/data', {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json',\n    'Authorization': 'Bearer your-token-here'\n  },\n  body: JSON.stringify({\n    name: 'John Doe',\n    email: 'john@example.com'\n  })\n});\n\nconst data = await response.json();\nconsole.log('Response:', data);\n\n// Alternative using axios\nconst axios = require('axios');\nconst response = await axios.post('https://api.example.com/data', {\n  name: 'John Doe',\n  email: 'john@example.com'\n}, {\n  headers: {\n    'Authorization': 'Bearer your-token-here'\n  }\n});"
+      },
+      {
+        "language": "python",
+        "filename": "http_request.py",
+        "code": "# Python HTTP request using requests library\nimport requests\n\n# POST request\nresponse = requests.post(\n    'https://api.example.com/data',\n    json={\n        'name': 'John Doe',\n        'email': 'john@example.com'\n    },\n    headers={\n        'Authorization': 'Bearer your-token-here'\n    }\n)\n\nprint(f'Status Code: {response.status_code}')\nprint(f'Response: {response.json()}')\n\n# Alternative using httpx (async)\nimport httpx\nimport asyncio\n\nasync def make_request():\n    async with httpx.AsyncClient() as client:\n        response = await client.post(\n            'https://api.example.com/data',\n            json={'name': 'John Doe', 'email': 'john@example.com'},\n            headers={'Authorization': 'Bearer your-token-here'}\n        )\n        return response.json()\n\n# asyncio.run(make_request())"
+      },
+      {
+        "language": "go",
+        "filename": "http_request.go",
+        "code": "package main\n\nimport (\n    \"bytes\"\n    \"encoding/json\"\n    \"fmt\"\n    \"io\"\n    \"net/http\"\n)\n\ntype User struct {\n    Name  string `json:\"name\"`\n    Email string `json:\"email\"`\n}\n\nfunc main() {\n    user := User{\n        Name:  \"John Doe\",\n        Email: \"john@example.com\",\n    }\n\n    jsonData, _ := json.Marshal(user)\n\n    req, _ := http.NewRequest(\"POST\", \"https://api.example.com/data\", bytes.NewBuffer(jsonData))\n    req.Header.Set(\"Content-Type\", \"application/json\")\n    req.Header.Set(\"Authorization\", \"Bearer your-token-here\")\n\n    client := &http.Client{}\n    resp, err := client.Do(req)\n    if err != nil {\n        fmt.Printf(\"Error: %v\\n\", err)\n        return\n    }\n    defer resp.Body.Close()\n\n    body, _ := io.ReadAll(resp.Body)\n    fmt.Printf(\"Status: %s\\n\", resp.Status)\n    fmt.Printf(\"Response: %s\\n\", string(body))\n}"
+      }
+    ]
+  },
+  "community": {
+    "eyebrow": "Community",
+    "title": "Loved by productivity enthusiasts",
+    "cta": {
+      "label": "Read user reviews",
+      "href": "#"
+    },
+    "testimonials": [
+      {
+        "company": "Descript",
+        "logo": "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/icons/descript.svg",
+        "wordmark": "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-2.svg",
+        "author": "Samantha Lee",
+        "role": "Productivity Coach, Descript",
+        "avatar": "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/portraits/alexander-hipp-iEEBWgY_6lA-unsplash.jpg",
+        "quote": "\"This product transformed my daily routine. The intuitive task management and reminders keep me on track like never before.\"",
+        "outcome": {
+          "text": "Completed ",
+          "highlight": "12 major projects in 2 months"
+        }
+      },
+      {
+        "company": "Ramp",
+        "logo": "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/icons/ramp.svg",
+        "wordmark": "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-4.svg",
+        "author": "Carlos Rivera",
+        "role": "Freelance Designer, Ramp",
+        "avatar": "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/portraits/joseph-gonzalez-iFgRcqHznqg-unsplash.jpg",
+        "quote": "\"With this tool, I finally have a clear overview of my deadlines. The calendar sync is a game changer for my workflow.\"",
+        "outcome": {
+          "text": "Increased productivity by ",
+          "highlight": "40% in one quarter"
+        }
+      },
+      {
+        "company": "Watershed",
+        "logo": "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/icons/watershed.svg",
+        "wordmark": "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-6.svg",
+        "author": "Priya Patel",
+        "role": "Operations Lead, watershed",
+        "avatar": "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/portraits/nima-motaghian-nejad-_omdf_EgRUo-unsplash.jpg",
+        "quote": "\"The meeting notes and summaries feature saves me hours every week. I can focus on what matters instead of paperwork, thanks to this product.\"",
+        "outcome": {
+          "text": "Saved over 30 hours, ",
+          "highlight": "reduced admin time by 60%"
+        }
+      }
+    ]
+  },
+  "manifesto": {
+    "body": "Build faster with {{0}} designed for real-world apps. Whether you're using {{1}}, {{2}}, or integrating {{3}}\n\nEvery block is customizable, responsive, and optimized for frameworks like {{4}} and {{5}} — giving you a powerful UI toolkit that scales with your project.",
+    "hoverTerms": [
+      {
+        "label": "Shadcnblocks",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGa70BgePn1Rsf41oiG6ac0_TAzpKXj4d9qg&s"
+      },
+      {
+        "label": "TailwindCSS",
+        "image": "https://tailwindcss.com/img/logos/wordmark-mark.svg"
+      },
+      {
+        "label": "TypeScript",
+        "image": "https://www.typescriptlang.org/logos/typescript.svg"
+      },
+      {
+        "label": "Framer Motion",
+        "image": "https://www.framer.com/images/favicon.png"
+      },
+      {
+        "label": "Next.js",
+        "image": "https://nextjs.org/static/favicon/apple-touch-icon.png"
+      },
+      {
+        "label": "shadcn/ui",
+        "image": "https://ui.shadcn.com/apple-touch-icon.png"
+      }
+    ]
+  },
+  "logos": {
+    "items": [
+      {
+        "id": "logo-1",
+        "description": "Logo 1",
+        "image": "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/astro-wordmark.svg",
+        "className": "h-7 w-auto dark:invert"
+      },
+      {
+        "id": "logo-2",
+        "description": "Logo 2",
+        "image": "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-1.svg",
+        "className": "h-7 w-auto dark:invert"
+      },
+      {
+        "id": "logo-3",
+        "description": "Logo 3",
+        "image": "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-2.svg",
+        "className": "h-7 w-auto dark:invert"
+      },
+      {
+        "id": "logo-4",
+        "description": "Logo 4",
+        "image": "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-3.svg",
+        "className": "h-7 w-auto dark:invert"
+      },
+      {
+        "id": "logo-5",
+        "description": "Logo 5",
+        "image": "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-4.svg",
+        "className": "h-7 w-auto dark:invert"
+      },
+      {
+        "id": "logo-6",
+        "description": "Logo 6",
+        "image": "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-5.svg",
+        "className": "h-5 w-auto dark:invert"
+      },
+      {
+        "id": "logo-7",
+        "description": "Logo 7",
+        "image": "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-6.svg",
+        "className": "h-7 w-auto dark:invert"
+      },
+      {
+        "id": "logo-8",
+        "description": "Logo 8",
+        "image": "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-7.svg",
+        "className": "h-7 w-auto dark:invert"
+      }
+    ]
+  },
+  "footer": {
+    "navigation": [
+      {
+        "name": "Product",
+        "href": "#"
+      },
+      {
+        "name": "About Us",
+        "href": "#"
+      },
+      {
+        "name": "Pricing",
+        "href": "#"
+      },
+      {
+        "name": "FAQ",
+        "href": "#"
+      },
+      {
+        "name": "Contact",
+        "href": "#"
+      }
+    ],
+    "social": [
+      {
+        "name": "Twitter",
+        "href": "#"
+      },
+      {
+        "name": "LinkedIn",
+        "href": "#"
+      }
+    ],
+    "legal": [
+      {
+        "name": "Privacy Policy",
+        "href": "#"
+      }
+    ],
+    "siteTitle": "community-dev"
+  }
+}
