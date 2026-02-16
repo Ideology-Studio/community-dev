@@ -73,7 +73,7 @@ export default function Footer({ data }) {
                     whileInView={{ y: 0, opacity: 0.3 }}
                     transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
                     viewport={{ once: true }}
-                    className="text-[12vw] font-black uppercase tracking-tighter leading-none text-center bg-clip-text text-transparent pointer-events-none select-none"
+                    className="text-[10vw] font-black uppercase tracking-tighter leading-none text-center bg-clip-text text-transparent pointer-events-none select-none"
                     style={{
                         backgroundImage: 'linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(128, 128, 128, 1) 51%, rgba(0, 0, 0, 1) 100%)'
                     }}
