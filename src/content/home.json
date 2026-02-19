@@ -217,7 +217,7 @@
     "cta": {
       "title": "Ready to build the next big thing?",
       "subtitle": "Join our community of elite developers and start shipping real projects.",
-      "email": "hello@community.dev"
+      "email": "hello@johnny.dev"
     },
     "labels": {
       "explore": "Explore",
@@ -262,6 +262,6 @@
         "href": "#"
       }
     ],
-    "siteTitle": "community-dev"
+    "siteTitle": "JohnnyDEV"
   }
 }

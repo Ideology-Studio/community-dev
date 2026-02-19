@@ -5,14 +5,14 @@ export default function Testimonials({ data }) {
         <section className="py-32 bg-brand-white text-black relative z-30">
 
             <div className="max-w-7xl mx-auto px-6 mb-16 flex flex-col items-center text-center">
-                <span className="text-brand-lime text-xs font-bold uppercase tracking-widest mb-4 inline-flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-lime"></span>
+                <span className="text-[var(--color-brand-blue)] text-xs font-bold uppercase tracking-widest mb-4 inline-flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-brand-blue)]"></span>
                     {eyebrow}
                 </span>
                 <h2 className="text-4xl md:text-6xl font-black font-display tracking-tight mb-8 max-w-2xl">
                     {title}
                 </h2>
-                <a href={cta.href} className="text-sm font-bold border-b-2 border-brand-lime hover:bg-brand-lime/10 transition-colors px-1">
+                <a href={cta.href} className="text-sm font-bold border-b-2 border-[var(--color-brand-blue)] hover:bg-[var(--color-brand-blue)]/10 transition-colors px-1">
                     {cta.label} →
                 </a>
             </div>
@@ -44,7 +44,7 @@ export default function Testimonials({ data }) {
 
                             <div className="bg-white rounded-xl p-4 text-xs shadow-sm border border-gray-100">
                                 <span className="text-gray-500 font-medium">{testimonial.outcome.text}</span>
-                                <span className="text-brand-lime-dim font-bold block mt-1 text-sm">{testimonial.outcome.highlight}</span>
+                                <span className="text-[var(--color-brand-blue)] font-bold block mt-1 text-sm">{testimonial.outcome.highlight}</span>
                             </div>
                         </div>
 

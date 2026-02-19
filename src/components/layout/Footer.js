@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Logo from "@/components/ui/Logo";
 
 export default function Footer({ data }) {
     const { navigation, social, legal, siteTitle, cta, labels } = data;
@@ -11,11 +12,12 @@ export default function Footer({ data }) {
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-24">
                     {/* Left Side: Call to Action */}
                     <div className="md:col-span-6 space-y-8">
+                        <Logo className="w-20 h-20 text-[var(--color-brand-lime)] mb-6" />
                         <h2 className="text-4xl md:text-5xl font-bold font-display leading-[1.1] tracking-tight">
                             {cta?.title?.split('build').map((part, i) => (
                                 <span key={i}>
                                     {part}
-                                    {i === 0 && <span className="text-accent">build</span>}
+                                    {i === 0 && <span className="text-[var(--color-brand-lime)]">build</span>}
                                 </span>
                             ))}
                         </h2>
@@ -23,7 +25,7 @@ export default function Footer({ data }) {
                             <p className="text-gray-500 text-lg max-w-sm">
                                 {cta?.subtitle}
                             </p>
-                            <a href={`mailto:${cta?.email}`} className="text-xl md:text-2xl font-medium border-b border-accent/30 hover:border-accent transition-all pb-1 inline-block w-fit">
+                            <a href={`mailto:${cta?.email}`} className="text-xl md:text-2xl font-medium border-b border-[var(--color-brand-lime)]/30 hover:border-[var(--color-brand-lime)] transition-all pb-1 inline-block w-fit">
                                 {cta?.email}
                             </a>
                         </div>

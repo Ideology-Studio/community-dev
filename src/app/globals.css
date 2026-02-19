@@ -1,22 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #FAFAFA;
-  /* Light Off-White Requested */
-  --color-surface: #FFFFFF;
-  --color-surface-dim: #F4F4F5;
-  --color-text-primary: #1A1A1A;
-  /* Softer Black */
-  --color-text-secondary: #52525B;
-  --color-accent: #7C3AED;
-  /* Premium Purple */
-  --color-accent-light: #A78BFA;
-  --color-accent-dark: #5B21B6;
-  --color-brand-black: #0F0F0F;
-  /* Deep Dark */
+  --color-background: #050505;
+  --color-surface: #121212;
+  --color-surface-mim: #1E1E1E;
+  --color-text-primary: #EDEDED;
+  --color-text-secondary: #A1A1AA;
 
-  --font-sans: var(--font-inter), -apple-system, sans-serif;
-  --font-display: var(--font-space-grotesk), var(--font-inter), sans-serif;
+  --color-brand-lime: #CCFF00;
+  --color-brand-blue: #1e34b7;
+  --color-brand-black: #000000;
+  --color-brand-white: #FFFFFF;
+
+  --color-accent: var(--color-brand-blue);
+  --color-primary: var(--color-brand-lime);
+  --color-secondary: var(--color-brand-blue);
+
+  --font-sans: var(--font-geist-mono), monospace;
+  --font-display: var(--font-geist-mono), monospace;
 
   --animate-fade-in: fade-in 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   --animate-slide-up: slide-up 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;

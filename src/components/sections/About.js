@@ -20,7 +20,7 @@ export default function About({ data }) {
     return (
         <section id="about" className="py-32 bg-gradient-to-b from-[#0a0a0a] to-[#1a1a1a] text-white relative overflow-hidden">
             {/* Background Accent */}
-            <div className="absolute top-0 right-0 w-[60%] h-[600px] bg-accent/10 blur-[150px] rounded-full pointer-events-none" />
+            <div className="absolute top-0 right-0 w-[60%] h-[600px] bg-[var(--color-brand-lime)]/10 blur-[150px] rounded-full pointer-events-none" />
 
             <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-24 items-start relative z-10">
 
@@ -30,9 +30,9 @@ export default function About({ data }) {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-bold uppercase tracking-wider"
+                        className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[var(--color-brand-lime)]/10 border border-[var(--color-brand-lime)]/20 text-[var(--color-brand-lime)] text-xs font-bold uppercase tracking-wider"
                     >
-                        <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+                        <span className="w-2 h-2 rounded-full bg-[var(--color-brand-lime)] animate-pulse" />
                         Features
                     </motion.div>
 
@@ -63,11 +63,11 @@ export default function About({ data }) {
                         transition={{ delay: 0.3 }}
                         className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm"
                     >
-                        <span className="text-accent text-sm font-mono block mb-2">{badge}</span>
+                        <span className="text-[var(--color-brand-lime)] text-sm font-mono block mb-2">{badge}</span>
                         <div className="text-sm text-gray-400">Optimized for performance and scalability.</div>
                     </motion.div>
 
-                    <a href={cta.href} className="inline-flex items-center gap-3 text-accent font-semibold text-lg hover:text-white transition-colors group">
+                    <a href={cta.href} className="inline-flex items-center gap-3 text-[var(--color-brand-lime)] font-semibold text-lg hover:text-white transition-colors group">
                         {cta.label}
                         <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </a>
@@ -123,7 +123,7 @@ export default function About({ data }) {
                     </div>
 
                     {/* Decorative Glow */}
-                    <div className="absolute -inset-2 bg-accent/20 rounded-2xl blur-3xl -z-10 opacity-40 pointer-events-none" />
+                    <div className="absolute -inset-2 bg-[var(--color-brand-lime)]/20 rounded-2xl blur-3xl -z-10 opacity-40 pointer-events-none" />
                 </motion.div>
 
             </div>

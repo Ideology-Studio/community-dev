@@ -5,9 +5,12 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as random from "maath/random/dist/maath-random.esm";
 
-function StarField(props) {
+function StarField({ color = "#333333", count = 2000, size = 0.003, radius = 1.5 }) {
     const ref = useRef();
-    const sphere = useMemo(() => random.inSphere(new Float32Array(3000), { radius: 1.5 }), []);
+    // Generate new positions based on unique count/radius to avoid overlap if strict uniqueness is needed, 
+    // but random.inSphere is random enough.
+    // We wrap useMemo with the count/radius dependencies.
+    const sphere = useMemo(() => random.inSphere(new Float32Array(count * 3), { radius }), [count, radius]);
 
     useFrame((state, delta) => {
         if (ref.current) {
@@ -18,11 +21,11 @@ function StarField(props) {
 
     return (
         <group rotation={[0, 0, Math.PI / 4]}>
-            <Points ref={ref} positions={sphere} stride={3} frustumCulled={false} {...props}>
+            <Points ref={ref} positions={sphere} stride={3} frustumCulled={false}>
                 <PointMaterial
                     transparent
-                    color="#333333" // Dark particles on light background
-                    size={0.003}
+                    color={color}
+                    size={size}
                     sizeAttenuation={true}
                     depthWrite={false}
                     opacity={0.6}
@@ -40,7 +43,12 @@ export default function AnimatedBackground() {
             <div className="absolute bottom-[-20%] right-[-10%] w-[50vw] h-[50vw] bg-accent-light/5 rounded-full blur-[100px] animate-pulse opacity-40 mix-blend-multiply delay-1000" />
 
             <Canvas camera={{ position: [0, 0, 1] }}>
-                <StarField />
+                {/* Main dark particles */}
+                <StarField color="#333333" count={2500} size={0.002} radius={1.5} />
+                {/* Brand Blue Accent particles */}
+                <StarField color="#1e34b7" count={300} size={0.004} radius={1.6} />
+                {/* Brand Lime Accent particles */}
+                <StarField color="#CCFF00" count={300} size={0.004} radius={1.4} />
             </Canvas>
 
             {/* Noise Overlay for texture */}

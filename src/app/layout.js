@@ -1,29 +1,23 @@
-import { Inter, Space_Grotesk } from "next/font/google"; // Changed from Outfit
+import { Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/ui/SmoothScroll";
-import CustomCursor from "@/components/ui/CustomCursor"; // Optional: user likes premium feel
+import CustomCursor from "@/components/ui/CustomCursor";
 
-const inter = Inter({
+const geistMono = Geist_Mono({
   subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk", // Changed variable name
+  variable: "--font-geist-mono",
   display: "swap",
 });
 
 export const metadata = {
-  title: "Dev Community | Premium Developer Network",
+  title: "JohnnyDEV",
   description: "A curated network for elite developers to connect, learn, and grow.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.variable} ${spaceGrotesk.variable} antialiased bg-[#FDFBF7] text-[#111111]`}>
+      <body className={`${geistMono.variable} antialiased bg-white text-black font-mono`}>
         <CustomCursor />
         <SmoothScroll>
           {children}
