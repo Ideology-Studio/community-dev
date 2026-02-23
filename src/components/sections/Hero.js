@@ -10,7 +10,7 @@ export default function Hero({ data }) {
     const y1 = useTransform(scrollY, [0, 500], [0, 100]);
 
     return (
-        <section className="relative pt-28 pb-12 md:pt-32 md:pb-20 overflow-hidden z-10 bg-transparent">
+        <section className="relative pt-28 pb-12 md:pt-32 md:pb-20 z-10 bg-transparent">
             {/* Background Glows */}
             <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-accent/5 blur-[120px] -z-10 animate-pulse" />
             <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-purple-500/5 blur-[100px] -z-10" />
@@ -83,12 +83,12 @@ export default function Hero({ data }) {
                 {/* Right Column: Mascotte */}
                 <motion.div
                     style={{ y: y1 }}
-                    className="relative hidden lg:flex items-center justify-center"
+                    className="relative flex items-center justify-center mt-12 lg:mt-0"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 1, delay: 0.5 }}
                 >
-                    <div className="w-full h-[500px]">
+                    <div className="w-full h-[450px] md:h-[500px]">
                         <SplineMascot />
                     </div>
                 </motion.div>
