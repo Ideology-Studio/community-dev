@@ -2,7 +2,7 @@ export default function Testimonials({ data }) {
     const { title, eyebrow, cta, testimonials } = data;
 
     return (
-        <section className="py-32 bg-brand-white text-black relative z-30">
+        <section id="community" className="py-32 bg-brand-white text-black relative z-30">
 
             <div className="max-w-7xl mx-auto px-6 mb-16 flex flex-col items-center text-center">
                 <span className="text-[var(--color-brand-blue)] text-xs font-bold uppercase tracking-widest mb-4 inline-flex items-center gap-2">

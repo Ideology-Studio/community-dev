@@ -3,9 +3,32 @@
 import Spline from '@splinetool/react-spline';
 import { useRef, useEffect, useState } from 'react';
 
+// --- HACK TO CAPTURE SPLINE'S INTERNAL MEDIA STREAM ---
+let capturedSplineStream = null;
+if (typeof window !== 'undefined' && navigator.mediaDevices) {
+    const originalGetUserMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+    navigator.mediaDevices.getUserMedia = async (constraints) => {
+        const stream = await originalGetUserMedia(constraints);
+        if (constraints && constraints.audio) {
+            capturedSplineStream = stream;
+            // Mute the audio track immediately so Spline doesn't hear anything by default
+            stream.getAudioTracks().forEach(track => {
+                track.enabled = false;
+            });
+            console.log("Spline's internal media stream captured and muted.");
+        }
+        return stream;
+    };
+}
+// --------------------------------------------------------
+
 export default function SplineMascot() {
     const containerRef = useRef(null);
+    const splineApp = useRef(null);
+    const audioStreamRef = useRef(null);
     const [scale, setScale] = useState(1);
+    const [isHolding, setIsHolding] = useState(false);
+    const [micPermissionGranted, setMicPermissionGranted] = useState(false);
 
     useEffect(() => {
         // Manteniamo una larghezza virtuale fissa (più ampia) per impedire il cropping su mobile
@@ -27,6 +50,59 @@ export default function SplineMascot() {
         }
         return () => observer.disconnect();
     }, []);
+
+    const toggleMicrophoneStream = async (enable) => {
+        console.log(`toggleMicrophoneStream called with enable: ${enable}`);
+        setIsHolding(enable);
+        try {
+            if (!micPermissionGranted && enable && !capturedSplineStream) {
+                console.log("Requesting microphone permission manually...");
+                // Request mic permission on first press just in case Spline hasn't
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                console.log("Microphone permission granted manually!");
+                setMicPermissionGranted(true);
+                // Stop our manual stream since Spline will have its own if it needed it, 
+                // but we keep it as fallback if capturedSplineStream is still null
+                if (!capturedSplineStream) {
+                    capturedSplineStream = stream;
+                } else {
+                    stream.getTracks().forEach(t => t.stop());
+                }
+            } else if (enable) {
+                setMicPermissionGranted(true);
+            }
+
+            if (capturedSplineStream) {
+                // Mute or unmute all tracks on Spline's stream
+                capturedSplineStream.getAudioTracks().forEach(track => {
+                    track.enabled = enable;
+                    console.log(`Spline Track ${track.id} enabled: ${track.enabled}`);
+                });
+            } else {
+                console.log("No audio stream available yet.");
+            }
+        } catch (err) {
+            console.error("Microphone access denied or error:", err);
+            setIsHolding(false);
+        }
+    };
+
+    const handlePointerDown = (e) => {
+        console.log("Pointer DOWN event triggered");
+        // Ensure browser doesn't try to drag the element or text selection
+        if (e.target.setPointerCapture) {
+            e.target.setPointerCapture(e.pointerId);
+        }
+        toggleMicrophoneStream(true);
+    };
+
+    const handlePointerUp = (e) => {
+        console.log("Pointer UP/LEAVE/CANCEL event triggered");
+        if (e && e.target.releasePointerCapture) {
+            try { e.target.releasePointerCapture(e.pointerId); } catch (err) { }
+        }
+        toggleMicrophoneStream(false);
+    };
 
     return (
         <div
@@ -74,10 +150,20 @@ export default function SplineMascot() {
                     white-space: nowrap;
                     z-index: 10;
                     text-decoration: none;
+                    transition: all 0.2s ease;
+                    user-select: none;
+                    -webkit-user-select: none;
                 }
                 .mic-hint-badge:hover {
                     border-color: rgba(163, 230, 53, 0.7);
                     background: rgba(10, 10, 15, 0.9);
+                    transform: translateX(-50%) scale(1.02);
+                }
+                .mic-hint-badge.holding {
+                    background: rgba(163, 230, 53, 0.15);
+                    border-color: rgba(163, 230, 53, 1);
+                    box-shadow: 0 0 20px rgba(163, 230, 53, 0.4);
+                    transform: translateX(-50%) scale(0.96);
                 }
                 .mic-hint-icon {
                     width: 34px;
@@ -133,7 +219,15 @@ export default function SplineMascot() {
                 .mic-waves span:nth-child(5) { height: 8px;  animation-delay: 0.25s; }
             `}</style>
 
-            <div className="mic-hint-badge">
+            <div
+                className={`mic-hint-badge ${isHolding ? 'holding' : ''}`}
+                onPointerDown={handlePointerDown}
+                onPointerUp={handlePointerUp}
+                onPointerLeave={handlePointerUp}
+                onPointerCancel={handlePointerUp}
+                onContextMenu={(e) => e.preventDefault()}
+                style={{ touchAction: 'none' }} // Prevent scrolling when holding on mobile
+            >
                 {/* Mic icon */}
                 <div className="mic-hint-icon">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -143,8 +237,12 @@ export default function SplineMascot() {
 
                 {/* Text */}
                 <div className="mic-hint-text">
-                    <span className="mic-hint-label">Parla con JohnnyDev</span>
-                    <span className="mic-hint-sub">Chiedimi qualcosa…</span>
+                    <span className="mic-hint-label">
+                        {!micPermissionGranted && !isHolding ? "Tieni premuto e Parla" : (isHolding ? "Ti sto ascoltando..." : "Lascia per fermare il mic")}
+                    </span>
+                    <span className="mic-hint-sub">
+                        {isHolding ? "Sto registrando..." : (!micPermissionGranted ? "con JohnnyDev" : "Premi di nuovo per riprendere")}
+                    </span>
                 </div>
 
                 {/* Animated sound waves */}
@@ -171,6 +269,9 @@ export default function SplineMascot() {
             >
                 <Spline
                     scene="https://prod.spline.design/95YV0-SvNokzBgy2/scene.splinecode"
+                    onLoad={(spline) => {
+                        splineApp.current = spline;
+                    }}
                 />
             </div>
         </div>

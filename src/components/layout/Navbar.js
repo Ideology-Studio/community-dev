@@ -5,10 +5,9 @@ import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-
 import Logo from "@/components/ui/Logo";
 
 const NAV_LINKS = [
-    { label: "Manifesto", href: "#" },
-    { label: "Projects", href: "#" },
-    { label: "Hackathons", href: "#" },
-    { label: "Resources", href: "#" },
+    { label: "Features", href: "#about" },
+    { label: "Manifesto", href: "#manifesto" },
+    { label: "Community", href: "#community" },
     { label: "Blog", href: "/blog" },
 ];
 

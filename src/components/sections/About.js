@@ -98,16 +98,9 @@ export default function About({ data }) {
                             </div>
                         </div>
 
-                        {/* Code Content */}
-                        <div
-                            data-lenis-prevent
-                            className="h-[400px] md:h-[480px] bg-[#0F0F0F] overflow-y-auto w-full"
-                            style={{
-                                scrollbarWidth: 'thin',
-                                scrollbarColor: '#a3e635 #1a1a1a',
-                            }}
-                        >
-                            <div className="p-4 md:p-8 text-sm md:text-base leading-relaxed text-gray-300 whitespace-pre-wrap break-words">
+                        {/* Content */}
+                        <div className="bg-[#0F0F0F] w-full min-h-[200px] md:min-h-[250px]">
+                            <div className="p-4 md:p-8 text-sm md:text-base leading-relaxed text-gray-300 whitespace-pre-wrap wrap-break-word">
                                 {activeCode.code}
                             </div>
                         </div>
