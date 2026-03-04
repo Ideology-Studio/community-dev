@@ -115,8 +115,16 @@ export default function About({ data }) {
                         </div>
 
                         {/* Code Content */}
-                        <div className="overflow-x-auto max-h-[600px] custom-scrollbar bg-[#0F0F0F]">
-                            <pre className="p-8 text-sm font-mono leading-relaxed text-gray-300">
+                        <div
+                            data-lenis-prevent
+                            className="h-[480px] bg-[#0F0F0F]"
+                            style={{
+                                overflowY: 'scroll',
+                                scrollbarWidth: 'thin',
+                                scrollbarColor: '#a3e635 #1a1a1a',
+                            }}
+                        >
+                            <pre className="p-8 text-sm font-mono leading-relaxed text-gray-300 whitespace-pre-wrap wrap-break-word">
                                 <code>{activeCode.code}</code>
                             </pre>
                         </div>

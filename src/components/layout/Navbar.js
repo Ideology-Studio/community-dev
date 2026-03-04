@@ -38,18 +38,24 @@ export default function Navbar() {
 
                         {/* Links */}
                         <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400 font-mono">
-                            {["Manifesto", "Projects", "Hackathons", "Resources"].map((link) => (
-                                <a key={link} href="#" className="relative hover:text-white transition-colors group">
-                                    {link}
+                            {[
+                                { label: "Manifesto", href: "#" },
+                                { label: "Projects", href: "#" },
+                                { label: "Hackathons", href: "#" },
+                                { label: "Resources", href: "#" },
+                                { label: "Blog", href: "/blog" },
+                            ].map(({ label, href }) => (
+                                <a key={label} href={href} className="relative hover:text-white transition-colors group">
+                                    {label}
                                     <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[var(--color-brand-lime)] transition-all group-hover:w-full" />
                                 </a>
                             ))}
                         </div>
 
                         {/* CTA */}
-                        <button className="hidden md:flex items-center gap-2 px-6 py-2 rounded-full bg-[var(--color-brand-lime)] text-black hover:bg-white transition-colors duration-300 text-sm font-bold font-mono shadow-md hover:shadow-lg transform active:scale-95">
+                        <a href="/onboarding" className="hidden md:flex items-center gap-2 px-6 py-2 rounded-full bg-[var(--color-brand-lime)] text-black hover:bg-white transition-colors duration-300 text-sm font-bold font-mono shadow-md hover:shadow-lg transform active:scale-95">
                             Join Waitlist
-                        </button>
+                        </a>
 
                         {/* Mobile Menu Icon */}
                         <div className="md:hidden flex flex-col justify-center items-end gap-1.5 cursor-pointer">
