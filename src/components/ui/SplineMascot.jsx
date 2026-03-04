@@ -1,13 +1,36 @@
 "use client";
 
-import { streamState } from '@/lib/patchAudio';
 import Spline from '@splinetool/react-spline';
 import { useRef, useEffect, useState } from 'react';
+
+// --- HACK TO CAPTURE SPLINE'S INTERNAL MEDIA STREAM ---
+if (typeof window !== 'undefined') {
+    if (!window.__capturedSplineStream) {
+        window.__capturedSplineStream = null;
+    }
+
+    // Protect against double-patching in development when React hot-reloads
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia && !navigator.mediaDevices.__patched) {
+        const originalGetUserMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+        navigator.mediaDevices.getUserMedia = async (constraints) => {
+            const stream = await originalGetUserMedia(constraints);
+            if (constraints && constraints.audio) {
+                window.__capturedSplineStream = stream;
+                // Mute the audio track immediately so Spline doesn't hear anything by default
+                stream.getAudioTracks().forEach(track => {
+                    track.enabled = false;
+                });
+            }
+            return stream;
+        };
+        navigator.mediaDevices.__patched = true; // Mark as patched
+    }
+}
+// --------------------------------------------------------
 
 export default function SplineMascot() {
     const containerRef = useRef(null);
     const splineApp = useRef(null);
-    const audioStreamRef = useRef(null);
     const [scale, setScale] = useState(1);
     const [isHolding, setIsHolding] = useState(false);
     const [micPermissionGranted, setMicPermissionGranted] = useState(false);
@@ -34,19 +57,14 @@ export default function SplineMascot() {
     }, []);
 
     const toggleMicrophoneStream = async (enable) => {
-        console.log(`toggleMicrophoneStream called with enable: ${enable}`);
         setIsHolding(enable);
         try {
-            if (!micPermissionGranted && enable && !streamState.capturedSplineStream) {
-                console.log("Requesting microphone permission manually...");
-                // Request mic permission on first press just in case Spline hasn't
+            if (!micPermissionGranted && enable && !window.__capturedSplineStream) {
+                // Request mic permission on first press manually if Spline hasn't yet
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                console.log("Microphone permission granted manually!");
                 setMicPermissionGranted(true);
-                // Stop our manual stream since Spline will have its own if it needed it, 
-                // but we keep it as fallback if capturedSplineStream is still null
-                if (!streamState.capturedSplineStream) {
-                    streamState.capturedSplineStream = stream;
+                if (!window.__capturedSplineStream) {
+                    window.__capturedSplineStream = stream;
                 } else {
                     stream.getTracks().forEach(t => t.stop());
                 }
@@ -54,14 +72,11 @@ export default function SplineMascot() {
                 setMicPermissionGranted(true);
             }
 
-            if (streamState.capturedSplineStream) {
+            if (window.__capturedSplineStream) {
                 // Mute or unmute all tracks on Spline's stream
-                streamState.capturedSplineStream.getAudioTracks().forEach(track => {
+                window.__capturedSplineStream.getAudioTracks().forEach(track => {
                     track.enabled = enable;
-                    console.log(`Spline Track ${track.id} enabled: ${track.enabled}`);
                 });
-            } else {
-                console.log("No audio stream available yet.");
             }
         } catch (err) {
             console.error("Microphone access denied or error:", err);
@@ -70,7 +85,6 @@ export default function SplineMascot() {
     };
 
     const handlePointerDown = (e) => {
-        console.log("Pointer DOWN event triggered");
         // Ensure browser doesn't try to drag the element or text selection
         if (e.target.setPointerCapture) {
             e.target.setPointerCapture(e.pointerId);
@@ -79,7 +93,6 @@ export default function SplineMascot() {
     };
 
     const handlePointerUp = (e) => {
-        console.log("Pointer UP/LEAVE/CANCEL event triggered");
         if (e && e.target.releasePointerCapture) {
             try { e.target.releasePointerCapture(e.pointerId); } catch (err) { }
         }
@@ -250,7 +263,8 @@ export default function SplineMascot() {
                 }}
             >
                 <Spline
-                    scene="https://prod.spline.design/95YV0-SvNokzBgy2/scene.splinecode"
+                    scene="https://prod.spline.design/cQNiQQZJ9pgPfTRN/scene.splinecode"
+
                     onLoad={(spline) => {
                         splineApp.current = spline;
                     }}
