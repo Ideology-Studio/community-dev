@@ -1,26 +1,8 @@
 "use client";
 
+import { streamState } from '@/lib/patchAudio';
 import Spline from '@splinetool/react-spline';
 import { useRef, useEffect, useState } from 'react';
-
-// --- HACK TO CAPTURE SPLINE'S INTERNAL MEDIA STREAM ---
-let capturedSplineStream = null;
-if (typeof window !== 'undefined' && navigator.mediaDevices) {
-    const originalGetUserMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
-    navigator.mediaDevices.getUserMedia = async (constraints) => {
-        const stream = await originalGetUserMedia(constraints);
-        if (constraints && constraints.audio) {
-            capturedSplineStream = stream;
-            // Mute the audio track immediately so Spline doesn't hear anything by default
-            stream.getAudioTracks().forEach(track => {
-                track.enabled = false;
-            });
-            console.log("Spline's internal media stream captured and muted.");
-        }
-        return stream;
-    };
-}
-// --------------------------------------------------------
 
 export default function SplineMascot() {
     const containerRef = useRef(null);
@@ -55,7 +37,7 @@ export default function SplineMascot() {
         console.log(`toggleMicrophoneStream called with enable: ${enable}`);
         setIsHolding(enable);
         try {
-            if (!micPermissionGranted && enable && !capturedSplineStream) {
+            if (!micPermissionGranted && enable && !streamState.capturedSplineStream) {
                 console.log("Requesting microphone permission manually...");
                 // Request mic permission on first press just in case Spline hasn't
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -63,8 +45,8 @@ export default function SplineMascot() {
                 setMicPermissionGranted(true);
                 // Stop our manual stream since Spline will have its own if it needed it, 
                 // but we keep it as fallback if capturedSplineStream is still null
-                if (!capturedSplineStream) {
-                    capturedSplineStream = stream;
+                if (!streamState.capturedSplineStream) {
+                    streamState.capturedSplineStream = stream;
                 } else {
                     stream.getTracks().forEach(t => t.stop());
                 }
@@ -72,9 +54,9 @@ export default function SplineMascot() {
                 setMicPermissionGranted(true);
             }
 
-            if (capturedSplineStream) {
+            if (streamState.capturedSplineStream) {
                 // Mute or unmute all tracks on Spline's stream
-                capturedSplineStream.getAudioTracks().forEach(track => {
+                streamState.capturedSplineStream.getAudioTracks().forEach(track => {
                     track.enabled = enable;
                     console.log(`Spline Track ${track.id} enabled: ${track.enabled}`);
                 });
