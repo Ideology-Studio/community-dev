@@ -8,14 +8,13 @@ export default function SplineMascot() {
     const [scale, setScale] = useState(1);
 
     useEffect(() => {
-        // Spline renders at ~640px wide internally.
-        // We measure the container and compute a scale ratio.
-        const SPLINE_NATIVE_WIDTH = 640;
+        // Manteniamo una larghezza virtuale fissa (più ampia) per impedire il cropping su mobile
+        const SPLINE_NATIVE_WIDTH = 800;
 
         const observer = new ResizeObserver((entries) => {
             for (const entry of entries) {
                 const containerWidth = entry.contentRect.width;
-                if (containerWidth < SPLINE_NATIVE_WIDTH) {
+                if (containerWidth < SPLINE_NATIVE_WIDTH && containerWidth > 0) {
                     setScale(containerWidth / SPLINE_NATIVE_WIDTH);
                 } else {
                     setScale(1);
@@ -49,8 +48,8 @@ export default function SplineMascot() {
                     50%       { transform: scale(1.08); box-shadow: 0 0 0 10px rgba(163, 230, 53, 0); }
                 }
                 @keyframes micBadgeFadeIn {
-                    from { opacity: 0; transform: translateY(8px); }
-                    to   { opacity: 1; transform: translateY(0); }
+                    from { opacity: 0; transform: translate(-50%, 8px); }
+                    to   { opacity: 1; transform: translate(-50%, 0); }
                 }
                 @keyframes micWave {
                     0%, 100% { opacity: 0.4; transform: scaleY(0.6); }
@@ -162,8 +161,9 @@ export default function SplineMascot() {
                 style={{
                     transform: `scale(${scale})`,
                     transformOrigin: 'center center',
-                    width: '100%',
-                    height: '100%',
+                    width: scale < 1 ? 800 : '100%',
+                    height: scale < 1 ? 800 : '100%',
+                    position: scale < 1 ? 'absolute' : 'relative',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',

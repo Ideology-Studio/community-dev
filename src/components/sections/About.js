@@ -1,31 +1,24 @@
 "use client";
 
 import { useState } from 'react';
-import { ArrowRight, Copy, Check } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function About({ data }) {
     const { badge, title, subtitle, cta, code } = data;
     const [activeTab, setActiveTab] = useState(code[0]?.language);
-    const [copied, setCopied] = useState(false);
 
     const activeCode = code.find(c => c.language === activeTab) || code[0];
 
-    const handleCopy = () => {
-        navigator.clipboard.writeText(activeCode.code);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-    };
-
     return (
-        <section id="about" className="py-32 bg-gradient-to-b from-[#0a0a0a] to-[#1a1a1a] text-white relative overflow-hidden">
+        <section id="about" className="py-16 lg:py-32 bg-gradient-to-b from-[#0a0a0a] to-[#1a1a1a] text-white relative overflow-hidden">
             {/* Background Accent */}
             <div className="absolute top-0 right-0 w-[60%] h-[600px] bg-[var(--color-brand-lime)]/10 blur-[150px] rounded-full pointer-events-none" />
 
-            <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-24 items-start relative z-10">
+            <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-24 items-start relative z-10 w-full">
 
                 {/* Left Column: Text Content */}
-                <div className="space-y-10 sticky top-32">
+                <div className="space-y-8 lg:space-y-10 lg:sticky lg:top-32 relative">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -41,7 +34,7 @@ export default function About({ data }) {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="text-5xl md:text-6xl font-bold font-display leading-[1.1]"
+                        className="text-4xl md:text-5xl lg:text-6xl font-bold font-display leading-[1.1]"
                     >
                         {title}
                     </motion.h2>
@@ -79,12 +72,12 @@ export default function About({ data }) {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.2 }}
-                    className="relative"
+                    className="relative min-w-0 w-full"
                 >
                     <div className="rounded-2xl border border-white/10 bg-[#141414] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.5)]">
                         {/* Tab Header with MacOS Controls */}
-                        <div className="flex items-center justify-between bg-white/5 border-b border-white/10 px-4 py-3">
-                            <div className="flex gap-2 mr-4">
+                        <div className="flex items-center bg-white/5 border-b border-white/10 px-4 py-3">
+                            <div className="hidden md:flex gap-2 mr-4 shrink-0">
                                 <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
                                 <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
                                 <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
@@ -94,7 +87,7 @@ export default function About({ data }) {
                                     <button
                                         key={item.language}
                                         onClick={() => setActiveTab(item.language)}
-                                        className={`px-4 py-1 text-xs font-medium rounded-t-lg transition-colors mr-1 ${activeTab === item.language
+                                        className={`px-4 py-1 text-xs font-medium rounded-t-lg transition-colors mr-1 whitespace-nowrap ${activeTab === item.language
                                             ? 'text-white bg-white/10'
                                             : 'text-gray-500 hover:text-gray-300'
                                             }`}
@@ -103,30 +96,20 @@ export default function About({ data }) {
                                     </button>
                                 ))}
                             </div>
-                            <div className="flex items-center gap-3 px-2">
-                                <button
-                                    onClick={handleCopy}
-                                    className="p-1.5 hover:bg-white/10 rounded-md transition-colors text-gray-400 hover:text-white"
-                                    title="Copy code"
-                                >
-                                    {copied ? <Check className="w-3.5 h-3.5 text-green-500" /> : <Copy className="w-3.5 h-3.5" />}
-                                </button>
-                            </div>
                         </div>
 
                         {/* Code Content */}
                         <div
                             data-lenis-prevent
-                            className="h-[480px] bg-[#0F0F0F]"
+                            className="h-[400px] md:h-[480px] bg-[#0F0F0F] overflow-y-auto w-full"
                             style={{
-                                overflowY: 'scroll',
                                 scrollbarWidth: 'thin',
                                 scrollbarColor: '#a3e635 #1a1a1a',
                             }}
                         >
-                            <pre className="p-8 text-sm font-mono leading-relaxed text-gray-300 whitespace-pre-wrap wrap-break-word">
-                                <code>{activeCode.code}</code>
-                            </pre>
+                            <div className="p-4 md:p-8 text-sm md:text-base leading-relaxed text-gray-300 whitespace-pre-wrap break-words">
+                                {activeCode.code}
+                            </div>
                         </div>
                     </div>
 

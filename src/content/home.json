@@ -59,27 +59,27 @@
   },
   "about": {
     "badge": "Per dev che vogliono costruire, non solo \"studiare\".",
-    "title": "HTTP Requests in Multiple Languages",
-    "subtitle": "See how to make HTTP requests across different programming languages. From Node.js with fetch and axios, to Python with requests and httpx, Go with net/http. Each example shows POST requests with JSON payloads and proper headers.",
+    "title": "La community in cui si fa sul serio",
+    "subtitle": "Mettiti alla prova su progetti reali, partecipa a sfide stimolanti e fai crescere il tuo portfolio insieme ad altri sviluppatori.",
     "cta": {
-      "label": "View Documentation",
+      "label": "Scopri il manifesto",
       "href": "#"
     },
     "code": [
       {
-        "language": "javascript",
-        "filename": "http-request.js",
-        "code": "// Node.js HTTP request using fetch (Node 18+)\nconst response = await fetch('https://api.example.com/data', {\n  method: 'POST',\n  headers: {\n    'Content-Type': 'application/json',\n    'Authorization': 'Bearer your-token-here'\n  },\n  body: JSON.stringify({\n    name: 'John Doe',\n    email: 'john@example.com'\n  })\n});\n\nconst data = await response.json();\nconsole.log('Response:', data);\n\n// Alternative using axios\nconst axios = require('axios');\nconst response = await axios.post('https://api.example.com/data', {\n  name: 'John Doe',\n  email: 'john@example.com'\n}, {\n  headers: {\n    'Authorization': 'Bearer your-token-here'\n  }\n});"
+        "language": "Visione",
+        "filename": "visione.txt",
+        "code": "Crediamo in un ecosistema dove l'esperienza pratica valga più della teoria.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
       },
       {
-        "language": "python",
-        "filename": "http_request.py",
-        "code": "# Python HTTP request using requests library\nimport requests\n\n# POST request\nresponse = requests.post(\n    'https://api.example.com/data',\n    json={\n        'name': 'John Doe',\n        'email': 'john@example.com'\n    },\n    headers={\n        'Authorization': 'Bearer your-token-here'\n    }\n)\n\nprint(f'Status Code: {response.status_code}')\nprint(f'Response: {response.json()}')\n\n# Alternative using httpx (async)\nimport httpx\nimport asyncio\n\nasync def make_request():\n    async with httpx.AsyncClient() as client:\n        response = await client.post(\n            'https://api.example.com/data',\n            json={'name': 'John Doe', 'email': 'john@example.com'},\n            headers={'Authorization': 'Bearer your-token-here'}\n        )\n        return response.json()\n\n# asyncio.run(make_request())"
+        "language": "Metodo",
+        "filename": "metodo.txt",
+        "code": "Il nostro approccio si basa sulla collaborazione e sul peer-to-peer.\n\nExcepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi."
       },
       {
-        "language": "go",
-        "filename": "http_request.go",
-        "code": "package main\n\nimport (\n    \"bytes\"\n    \"encoding/json\"\n    \"fmt\"\n    \"io\"\n    \"net/http\"\n)\n\ntype User struct {\n    Name  string `json:\"name\"`\n    Email string `json:\"email\"`\n}\n\nfunc main() {\n    user := User{\n        Name:  \"John Doe\",\n        Email: \"john@example.com\",\n    }\n\n    jsonData, _ := json.Marshal(user)\n\n    req, _ := http.NewRequest(\"POST\", \"https://api.example.com/data\", bytes.NewBuffer(jsonData))\n    req.Header.Set(\"Content-Type\", \"application/json\")\n    req.Header.Set(\"Authorization\", \"Bearer your-token-here\")\n\n    client := &http.Client{}\n    resp, err := client.Do(req)\n    if err != nil {\n        fmt.Printf(\"Error: %v\\n\", err)\n        return\n    }\n    defer resp.Body.Close()\n\n    body, _ := io.ReadAll(resp.Body)\n    fmt.Printf(\"Status: %s\\n\", resp.Status)\n    fmt.Printf(\"Response: %s\\n\", string(body))\n}"
+        "language": "Risultati",
+        "filename": "risultati.txt",
+        "code": "Costruire un portfolio pubblico invidiabile e connessioni autentiche.\n\nNemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt."
       }
     ]
   },

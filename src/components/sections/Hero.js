@@ -22,7 +22,7 @@ export default function Hero({ data }) {
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="space-y-8"
+                    className="space-y-8 order-2 lg:order-1"
                 >
                     {/* Badge */}
                     <motion.div
@@ -83,7 +83,7 @@ export default function Hero({ data }) {
                 {/* Right Column: Mascotte */}
                 <motion.div
                     style={{ y: y1 }}
-                    className="relative flex items-center justify-center mt-12 lg:mt-0"
+                    className="relative flex items-center justify-center order-1 lg:order-2"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 1, delay: 0.5 }}

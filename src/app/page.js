@@ -11,7 +11,7 @@ import homeData from "@/content/home.json";
 
 export default function Home() {
   return (
-    <main className="min-h-screen relative overflow-hidden selection:bg-accent selection:text-white">
+    <main className="min-h-screen relative overflow-clip selection:bg-accent selection:text-white">
       <AnimatedBackground />
       <Navbar />
 
